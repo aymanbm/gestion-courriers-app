@@ -1,0 +1,74 @@
+@once
+
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-[1450px] flex flex-wrap items-center justify-between mx-auto p-2">
+    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="{{asset("img/logo.svg")}}" class="h-14" alt="Flowbite Logo" />
+        <span class="self-center hidden md:block !text-2xl !md:text-xl !lg:text-3xl xl:text-3xl font-semibold whitespace-nowrap text-[#012D6F]">برنامج تدبير المراسلات</span>
+    </a>
+    <div class="flex items-center sm:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <span class="mx-3 cursor-pointer select-none">{{auth()->user()->nom}}</span>
+        <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-8 h-8 rounded-full" src={{asset("img/profile.png")}} alt="user photo">
+        </button>
+        <!-- Dropdown menu -->
+        <div class="z-50 select-none hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+          <div class="px-4 py-3">
+            {{-- <span class="block text-sm text-gray-900 dark:text-white">{{auth()->user()->statue}}</span> --}}
+          </div>
+          <ul class="py-2" aria-labelledby="user-menu-button">
+            <li class=" hover:bg-cyan-800 rounded transition">
+                <a href="{{route("destinateurs.index")}}" class="  hover:text-white block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسيير أصحاب البريد</a>
+            </li>
+            <li class=" hover:bg-cyan-800 rounded transition">
+            <a href="{{route("lieudestinateurs.index")}}" class="  hover:text-white block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسيير الجهات المعنية</a>
+            </li>
+            <li class=" hover:bg-cyan-800 rounded transition">
+              <a href={{route("logout")}} class="  hover:text-white block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسجيل الخروج</a>
+            </li>
+
+          </ul>
+        </div>
+        <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+    </div>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+            @empty(!$active1)
+                    <a href="/"  class="block underline !text-2lg !md:text-lg !lg:text-lg xl:text-lg !text-[#012D6F] underline-offset-8 py-2 ml-6 text-lg px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">لوحة التحكم</a>
+            @else    <a href="/" class="block !text-2lg !md:text-1lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">لوحة التحكم</a>
+            @endempty
+          </li>
+        <li>
+            @empty(!$active2)
+                    <a href={{route("courriers.index",['type'=>"مرسلة",'title'=>"البريد المرسل",'date'=>"تاريخ الارسال"])}} class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg underline !text-[#012D6F] underline-offset-8 py-2 ml-6 text-lg px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريد المرسل</a>
+            @else   <a href={{route("courriers.index",['type'=>"مرسلة",'title'=>"البريد المرسل",'date'=>"تاريخ الارسال"])}} class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريد المرسل</a>
+            @endempty
+        </li>
+        <li>
+            @empty(!$active3)
+                    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block underline !text-[#012D6F] underline-offset-8 !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريدالمستلم</a>
+            @else    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريدالمستلم</a>
+            @endempty
+        </li>
+        <li>
+            @empty(!$active4)
+                    <a href={{route("courriers.index",['type'=>"rapport",'title'=>"التقرير"])}}  class="block underline !text-[#012D6F] underline-offset-8 !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">التقرير</a>
+            @else    <a href={{route("courriers.index",['type'=>"rapport",'title'=>"التقرير"])}}  class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">التقرير</a>
+            @endempty
+        </li>
+        <li>
+              <a href={{route("courriers.create")}}  class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">اضافة بريد</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+
+@endonce

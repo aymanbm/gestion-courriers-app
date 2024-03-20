@@ -1,0 +1,63 @@
+body{
+    overflow: hidden;
+}
+.section-right{
+    background: #012D6F;
+    height: 100vh !important;
+    padding: 10rem 5rem;
+    color: white;
+}
+
+.section-right button{
+    background-color: #012D6F;
+    border: 2px solid white;
+    outline: none;
+    color: white;
+    text-align: center;
+    width: 100% !important;
+    font-weight: 400;
+    transition: .5s ease-in-out;
+    border-radius: 4px !important;
+
+}
+.section-right button:hover{
+    background-color: white;
+    color: black;
+}
+
+
+form{
+    width: 20rem;
+    margin:0 auto;
+}
+label{
+    font-weight: 350;
+}
+input[type="text"],
+input[type="password"]{
+    margin-top: 0.5rem;
+    border-radius: 4px !important;
+    padding: 0.6rem 0.4rem;
+}
+
+
+.img{
+    width: 100%;
+    text-align: center;
+}
+.img img{
+    height: 7.5rem !important;
+    width: 7.5rem !important;
+    padding: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.section-left{
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.section-left img{
+    margin-top: -5rem;
+}

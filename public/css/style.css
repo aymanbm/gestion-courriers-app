@@ -1,0 +1,67 @@
+*{box-sizing: border-box;}
+body{
+    height: 100vh;
+    /* width: 100%; */
+    margin: 0;
+    padding: 0  ;
+    display: flex;
+    flex-direction: column;
+
+        /* Add your background pattern here */
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -25px
+
+}
+main{height: 100% !important;}
+nav{
+    /* position: fixed; */
+    /* width: 100%; */
+    border-bottom:2px solid #012D6F;
+}
+.navbar.navbar-expand-lg{
+    background: #ffffff !important;
+    color: #012D6F !important;
+
+
+}
+.navbar.navbar-expand-lg ul{
+    margin-right: 0 !important;
+
+}
+.navbar.navbar-expand-lg ul li{
+    margin: 0 3rem;
+}
+.navbar.navbar-expand-lg ul li a{
+    color: #012D6F !important;
+    font-size: 1.3rem;
+}
+.navbar-brand img{
+    height: 4rem;
+    width: 4rem;
+    margin: 0 !important;
+}
+
+.navbar-expand-lg .container-fluid a:nth-of-type(2){
+    font-size: 1.5rem !important;
+    margin-right: 0.7rem;
+    font-weight: 500;
+}
+
+.profile-info{
+    display: flex;
+    margin-right: auto !important;
+    align-items: baseline;
+}
+.nom-profile{
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+
+}
+
+/* .profile-info .dropdown{
+    padding: 0 !important;
+    margin: 0 !important;
+} */
+
