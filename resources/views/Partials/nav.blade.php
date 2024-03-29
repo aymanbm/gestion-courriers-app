@@ -25,7 +25,11 @@
             <a href="{{route("lieudestinateurs.index")}}" class="  hover:text-white block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسيير الجهات المعنية</a>
             </li>
             <li class=" hover:bg-cyan-800 rounded transition">
-              <a href={{route("logout")}} class="  hover:text-white block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسجيل الخروج</a>
+              <a href={{route("logout")}} class="  flex hover:text-white  px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">تسجيل الخروج &nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM6.166 5.106a.75.75 0 0 1 0 1.06 8.25 8.25 0 1 0 11.668 0 .75.75 0 1 1 1.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                  </svg>
+                  </a>
             </li>
 
           </ul>
@@ -53,8 +57,8 @@
         </li>
         <li>
             @empty(!$active3)
-                    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block underline !text-[#012D6F] underline-offset-8 !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريدالمستلم</a>
-            @else    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريدالمستلم</a>
+                    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block underline !text-[#012D6F] underline-offset-8 !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريد المستلم</a>
+            @else    <a href={{route("courriers.index",['type'=>"مستلمة",'title'=>"البريدالمستلم",'date'=>"تاريخ الاستلام"])}}  class="block !text-2lg !md:text-lg !lg:text-lg !xl:text-lg py-2 ml-6 text-lg px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">البريد المستلم</a>
             @endempty
         </li>
         <li>

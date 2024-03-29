@@ -230,7 +230,7 @@ try{
                 $formField['files'] = $filesString;
             }
 
-            $courrier->fill($formField)->save();
+        $courrier->fill($formField)->save();
 
         return to_route("courriers.edit",$courrier->id)
         ->with("green","Votre courrier a été bien modifier");
@@ -270,4 +270,41 @@ try{
 
 }
         }
+
+
+        public function appendData(Request $request, $id)
+        {
+            try{
+
+                $formField = $request->validate([
+                    'files' => 'array|max:10',
+                    'files.*' => 'max:20044',]
+                );
+                $courrier = Courrier::find($id);
+                if ($request->hasFile('files')) {
+                    $filePaths = [];
+                    foreach ($request->file('files') as $file) {
+                        $path = $file->store('courrier', 'public');
+                        $filePaths[] = $path;
+                    }
+                    $filesString1 = implode(',', $filePaths);
+                    $filesString2 = $filesString1 . "," . $courrier->files;
+                    $formField['files'] = $filesString2;
+                }
+
+                $courrier->fill($formField)->save();
+
+            return to_route("appendform",compact('id'))
+            ->with('green', 'لقد تمت إضافة المرفقات بنجاح');
+        }catch(Exception $e){
+            return redirect()->back()
+            ->with("red", "حدث خطأ أثناء تحميل الملفات. الرجاء المحاولة مرة أخرى.");
+
+}
+        }
+
+        public function showAppendForm($id){
+    return view('courrier.add',compact("id"));
+}
+
 }

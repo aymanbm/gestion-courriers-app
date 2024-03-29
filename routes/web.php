@@ -58,3 +58,8 @@ Route::get("/gestion",function(){
 
 Route::resource('destinateurs',DestinateurController::class);
 Route::resource('lieudestinateurs',LieudestinateurController::class);
+
+Route::post('/courriers/{id}/appendfiles', [CourrierController::class, 'appendData'])
+->name("appendfiles");
+Route::get('/courriers/{id}/appendfiles', [CourrierController::class, 'showAppendForm'])
+->name('appendform');

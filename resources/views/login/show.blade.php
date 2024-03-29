@@ -46,7 +46,7 @@
                 </form>
             </div>
             <div class="section-left col-sm-6 col-lg-6 col-6">
-                <img src="{{asset("img/3.svg")}}" alt="">
+                <img src="{{asset("img/22.svg")}}" alt="">
                 <h3></h3>
             </div>
         </div>

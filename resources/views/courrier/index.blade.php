@@ -35,6 +35,9 @@
                     تعليق
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    حالة البريد
+                </th>
+                <th scope="col" class="px-6 py-3">
                     مرفقات
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -83,6 +86,13 @@
                         {{Str::limit($courrier->commentaire,40)}}
                     </td>
                     <td class="px-6 py-4">
+                        @if (session("type") === "مرسلة" || session("type") === "مستلمة")
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">في طور المعالجة</span>
+                        @elseif(session("type") === "المرسل المعالج" || session("type") === "المستلم المعالج")
+                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">مكتملة الإجراء</span>
+                        @endif
+                    </td>
+                    <td class="px-6 py-4">
                         @if(!empty($filenames) && isset($filenames))
 
                             <a href="{{ route('image.download', ['filenames' => $filenames ,'name' => $courrier->reference ]) }}" class="inline-flex items-center text-sm justify-center px-2  font-medium text-gray-500 rounded-lg bg-gray-50 transition hover:text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -98,19 +108,41 @@
                         @else لا يوجد مرفقات
                         @endif
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href={{route('courriers.show',$courrier->id)}} class="hover:underline font-bold text-green-600">أظهر</a>
+                    <td class="px-6 m-12 flex-col align-middle py-4 text-right">
+                        <a href={{route('courriers.show',$courrier->id)}} class="hover:underline font-bold text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                              </svg>
+
+                        </a> &nbsp;&nbsp;&nbsp;
                         <form action={{route("courriers.edit",$courrier->id)}} method="GET">
                             @csrf
-                            <button type="submit" class="outline-none border-none font-medium text-blue-600 dark:text-blue-500 hover:underline" >تعديل</button>
+                            <button type="submit" class="outline-none border-none font-medium text-blue-600 dark:text-blue-500 hover:underline" >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                  </svg>
+                            </button>
                         </form>
                             @if(auth()->user()->statue === 'admin')
                                 <form action={{route("courriers.destroy",$courrier->id)}} method="POST">
                                     @method("DELETE")
                                     @csrf
-                                    <button type="submit" class=" outline-none border-none font-medium mx-4 text-red-600 dark:text-red-500 hover:underline" >حذف</button>
+                                    <button type="submit" class=" outline-none border-none font-medium my-4 text-red-600 dark:text-red-500 hover:underline" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 0 1 1.925-3.546 3.75 3.75 0 0 1 3.255 3.718Z" clip-rule="evenodd" />
+                                          </svg>
+
+                                    </button>
                                 </form>
+
                             @endif
+                            <a href={{ route('appendform', ['id' => $courrier->id]) }} class="px-4 hover:underline font-bold text-purple-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
+                                    <path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+                                  </svg>
+
+                            </a>
                     </td>
                 </tr>
             @endforeach
@@ -158,6 +190,9 @@
                 </th>
                 <th scope="col" class="px-6 py-3">
                     تعليق
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    حالة البريد
                 </th>
                 <th scope="col" class="px-6 py-3">
                     مرفقات
@@ -209,6 +244,13 @@
                     <td class="px-6 py-4">
                         {{Str::limit($courrier->commentaire,40)}}
                     </td>
+                    <td class="px-6 py-4 ">
+                        @if ($courrier->courrier_statue === "مرسلة" || $courrier->courrier_statue === "مستلمة")
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">في طور المعالجة</span>
+                        @elseif($courrier->courrier_statue === "المرسل المعالج" || $courrier->courrier_statue === "المستلم المعالج")
+                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">مكتملة الإجراء</span>
+                        @endif
+                    </td>
                     <td class="px-6 py-4">
                         @if(!empty($filenames) && isset($filenames))
 
@@ -243,19 +285,41 @@
                         </td>
                     @endif
 
-                    <td class="px-6 py-4 text-right">
-                        <a href={{route('courriers.show',$courrier->id)}} class="hover:underline font-bold text-green-600">أظهر</a>
+                    <td class="px-6 m-12 flex-col align-middle py-4 text-right">
+                        <a href={{route('courriers.show',$courrier->id)}} class="hover:underline font-bold text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                              </svg>
+
+                        </a> &nbsp;&nbsp;&nbsp;
                         <form action={{route("courriers.edit",$courrier->id)}} method="GET">
                             @csrf
-                            <button type="submit" class="outline-none border-none font-medium text-blue-600 dark:text-blue-500 hover:underline" >تعديل</button>
+                            <button type="submit" class="outline-none border-none font-medium text-blue-600 dark:text-blue-500 hover:underline" >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                  </svg>
+                            </button>
                         </form>
                             @if(auth()->user()->statue === 'admin')
                                 <form action={{route("courriers.destroy",$courrier->id)}} method="POST">
                                     @method("DELETE")
                                     @csrf
-                                    <button type="submit" class=" outline-none border-none font-medium mx-4 text-red-600 dark:text-red-500 hover:underline" >حذف</button>
+                                    <button type="submit" class=" outline-none border-none font-medium my-4 text-red-600 dark:text-red-500 hover:underline" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 0 1 1.925-3.546 3.75 3.75 0 0 1 3.255 3.718Z" clip-rule="evenodd" />
+                                          </svg>
+
+                                    </button>
                                 </form>
+
                             @endif
+                            <a href={{ route('appendform', ['id' => $courrier->id]) }} class="px-4 hover:underline font-bold text-purple-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
+                                    <path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+                                  </svg>
+
+                            </a>
                     </td>
                 </tr>
             @endforeach

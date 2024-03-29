@@ -34,7 +34,7 @@ try{
             ->with("success","لقد تم تسجيل الدخول بنجاح".$login.' .');
         }else{
             return back()->withErrors([
-                'login' => "إسم المستخدم أو كلمة المرور غلط",
+                'login' => "إسم المستخدم أو كلمة المرور خطأ",
             ])->onlyInput("login");
         }
     }catch(Exception $e){
